@@ -31,6 +31,8 @@ jobs:
       if: contains(matrix.os, 'macos')
       run: |
         echo "::set-env name=MACOSX_DEPLOYMENT_TARGET=10.9"
+        echo "::set-env name=CFLAGS=-fno-stack-check"
+        echo "::set-env name=CXXFLAGS=-fno-stack-check"
     - name: Show versions
       run: |
         rustc -V
