@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js navy">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Key Binding - Wez's Terminal Emulator</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="../index.html">wezterm</a></li><li class="expanded "><a href="../installation.html"><strong aria-hidden="true">1.</strong> Install</a></li><li class="expanded "><a href="../features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li class="expanded "><a href="../changelog.html"><strong aria-hidden="true">3.</strong> Change Log</a></li><li class="expanded "><a href="../config/index.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li><ol class="section"><li class="expanded "><a href="../config/fonts.html"><strong aria-hidden="true">4.1.</strong> Fonts</a></li><li class="expanded "><a href="../config/font-shaping.html"><strong aria-hidden="true">4.2.</strong> Font Shaping</a></li><li class="expanded "><a href="../config/misc.html"><strong aria-hidden="true">4.3.</strong> Misc</a></li><li class="expanded "><a href="../config/keys.html" class="active"><strong aria-hidden="true">4.4.</strong> Key Binding</a></li><li class="expanded "><a href="../config/appearance.html"><strong aria-hidden="true">4.5.</strong> Colors &amp; Appearance</a></li></ol></li><li class="expanded "><a href="../imgcat.html"><strong aria-hidden="true">5.</strong> iTerm Image Protocol</a></li><li class="expanded "><a href="../ssh.html"><strong aria-hidden="true">6.</strong> SSH</a></li><li class="expanded "><a href="../serial.html"><strong aria-hidden="true">7.</strong> Serial Ports &amp; Arduino</a></li><li class="expanded "><a href="../multiplexing.html"><strong aria-hidden="true">8.</strong> Multiplexing</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Wez's Terminal Emulator</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3><a class="header" href="#shortcut--key-binding-assignments" id="shortcut--key-binding-assignments">Shortcut / Key Binding Assignments</a></h3>
+<p>The default key bindings are:</p>
+<table><thead><tr><th>Modifiers</th><th>Key</th><th>Action</th></tr></thead><tbody>
+<tr><td><code>SUPER</code></td><td><code>c</code></td><td><code>Copy</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>v</code></td><td><code>Paste</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>c</code></td><td><code>Copy</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>v</code></td><td><code>Paste</code></td></tr>
+<tr><td><code>SHIFT</code></td><td><code>Insert</code></td><td><code>Paste</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>m</code></td><td><code>Hide</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>n</code></td><td><code>SpawnWindow</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>n</code></td><td><code>SpawnWindow</code></td></tr>
+<tr><td><code>ALT</code></td><td><code>Enter</code></td><td><code>ToggleFullScreen</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>-</code></td><td><code>DecreaseFontSize</code></td></tr>
+<tr><td><code>CTRL</code></td><td><code>-</code></td><td><code>DecreaseFontSize</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>=</code></td><td><code>IncreaseFontSize</code></td></tr>
+<tr><td><code>CTRL</code></td><td><code>=</code></td><td><code>IncreaseFontSize</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>0</code></td><td><code>ResetFontSize</code></td></tr>
+<tr><td><code>CTRL</code></td><td><code>0</code></td><td><code>ResetFontSize</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>t</code></td><td><code>SpawnTabInCurrentTabDomain</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>t</code></td><td><code>SpawnTabInCurrentTabDomain</code></td></tr>
+<tr><td><code>SUPER+SHIFT</code></td><td><code>T</code></td><td><code>SpawnTab</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>w</code></td><td><code>CloseCurrentTab</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>1</code></td><td><code>ActivateTab(0)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>2</code></td><td><code>ActivateTab(1)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>3</code></td><td><code>ActivateTab(2)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>4</code></td><td><code>ActivateTab(3)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>5</code></td><td><code>ActivateTab(4)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>6</code></td><td><code>ActivateTab(5)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>7</code></td><td><code>ActivateTab(6)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>8</code></td><td><code>ActivateTab(7)</code></td></tr>
+<tr><td><code>SUPER</code></td><td><code>9</code></td><td><code>ActivateTab(8)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>w</code></td><td><code>CloseCurrentTab</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>1</code></td><td><code>ActivateTab(0)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>2</code></td><td><code>ActivateTab(1)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>3</code></td><td><code>ActivateTab(2)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>4</code></td><td><code>ActivateTab(3)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>5</code></td><td><code>ActivateTab(4)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>6</code></td><td><code>ActivateTab(5)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>7</code></td><td><code>ActivateTab(6)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>8</code></td><td><code>ActivateTab(7)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>9</code></td><td><code>ActivateTab(8)</code></td></tr>
+<tr><td><code>SUPER+SHIFT</code></td><td><code>[</code></td><td><code>ActivateTabRelative(-1)</code></td></tr>
+<tr><td><code>SUPER+SHIFT</code></td><td><code>]</code></td><td><code>ActivateTabRelative(1)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>PAGEUP</code></td><td><code>MoveTabRelative(-1)</code></td></tr>
+<tr><td><code>CTRL+SHIFT</code></td><td><code>PAGEDOWN</code></td><td><code>MoveTabRelative(1)</code></td></tr>
+<tr><td><code>SHIFT</code></td><td><code>PAGEUP</code></td><td><code>ScrollByPage(-1)</code></td></tr>
+<tr><td><code>SHIFT</code></td><td><code>PAGEDOWN</code></td><td><code>ScrollByPage(1)</code></td></tr>
+</tbody></table>
+<p>These can be overridden using the <code>keys</code> section in your <code>~/.wezterm.toml</code> config file.
+For example, you can disable a default assignment like this:</p>
+<pre><code># Turn off the default CMD-m Hide action
+[[keys]]
+key = &quot;m&quot;
+mods = &quot;CMD&quot;
+action = &quot;Nop&quot;
+</code></pre>
+<p>The <code>key</code> value can be one of the following keycode identifiers.  Note that not
+all of these are meaningful on all platforms:</p>
+<p><code>Hyper</code>, <code>Super</code>, <code>Meta</code>, <code>Cancel</code>, <code>Backspace</code>, <code>Tab</code>, <code>Clear</code>, <code>Enter</code>,
+<code>Shift</code>, <code>Escape</code>, <code>LeftShift</code>, <code>RightShift</code>, <code>Control</code>, <code>LeftControl</code>,
+<code>RightControl</code>, <code>Alt</code>, <code>LeftAlt</code>, <code>RightAlt</code>, <code>Menu</code>, <code>LeftMenu</code>, <code>RightMenu</code>,
+<code>Pause</code>, <code>CapsLock</code>, <code>PageUp</code>, <code>PageDown</code>, <code>End</code>, <code>Home</code>, <code>LeftArrow</code>,
+<code>RightArrow</code>, <code>UpArrow</code>, <code>DownArrow</code>, <code>Select</code>, <code>Print</code>, <code>Execute</code>,
+<code>PrintScreen</code>, <code>Insert</code>, <code>Delete</code>, <code>Help</code>, <code>LeftWindows</code>, <code>RightWindows</code>,
+<code>Applications</code>, <code>Sleep</code>, <code>Numpad0</code>, <code>Numpad1</code>, <code>Numpad2</code>, <code>Numpad3</code>,
+<code>Numpad4</code>, <code>Numpad5</code>, <code>Numpad6</code>, <code>Numpad7</code>, <code>Numpad8</code>, <code>Numpad9</code>, <code>Multiply</code>,
+<code>Add</code>, <code>Separator</code>, <code>Subtract</code>, <code>Decimal</code>, <code>Divide</code>, <code>NumLock</code>, <code>ScrollLock</code>,
+<code>BrowserBack</code>, <code>BrowserForward</code>, <code>BrowserRefresh</code>, <code>BrowserStop</code>,
+<code>BrowserSearch</code>, <code>BrowserFavorites</code>, <code>BrowserHome</code>, <code>VolumeMute</code>,
+<code>VolumeDown</code>, <code>VolumeUp</code>, <code>MediaNextTrack</code>, <code>MediaPrevTrack</code>, <code>MediaStop</code>,
+<code>MediaPlayPause</code>, <code>ApplicationLeftArrow</code>, <code>ApplicationRightArrow</code>,
+<code>ApplicationUpArrow</code>, <code>ApplicationDownArrow</code>.</p>
+<p>Alternatively, a single unicode character can be specified to indicate
+pressing the corresponding key.</p>
+<p>Possible Modifier labels are:</p>
+<ul>
+<li><code>SUPER</code>, <code>CMD</code>, <code>WIN</code> - these are all equivalent: on macOS the <code>Command</code> key,
+on Windows the <code>Windows</code> key, on Linux this can also be the <code>Super</code> or <code>Hyper</code>
+key.  Left and right are equivalent.</li>
+<li><code>SHIFT</code> - The shift key.  Left and right are equivalent.</li>
+<li><code>ALT</code>, <code>OPT</code>, <code>META</code> - these are all equivalent: on macOS the <code>Option</code> key,
+on other systems the <code>Alt</code> or <code>Meta</code> key.  Left and right are equivalent.</li>
+</ul>
+<p>You can combine modifiers using the <code>|</code> symbol (eg: <code>&quot;CMD|CTRL&quot;</code>).</p>
+<p>Possible actions are listed below.  Some actions require a parameter that is
+specified via the <code>arg</code> key; see examples below.</p>
+<table><thead><tr><th>Name</th><th>Effect</th></tr></thead><tbody>
+<tr><td><code>SpawnTab</code></td><td>Create a new local tab in the current window</td></tr>
+<tr><td><code>SpawnTabInCurrentTabDomain</code></td><td>Create a new tab in the current window. The tab will be spawned in the same domain as the currently active tab</td></tr>
+<tr><td><code>SpawnTabInDomain</code></td><td>Create a new tab in the current window. The tab will be spawned in the domain specified by the <code>arg</code> value</td></tr>
+<tr><td><code>SpawnWindow</code></td><td>Create a new window</td></tr>
+<tr><td><code>ToggleFullScreen</code></td><td>Toggles full screen mode for current window</td></tr>
+<tr><td><code>Paste</code></td><td>Paste the clipboard to the current tab</td></tr>
+<tr><td><code>ActivateTabRelative</code></td><td>Activate a tab relative to the current tab.  The <code>arg</code> value specifies an offset. eg: <code>-1</code> activates the tab to the left of the current tab, while <code>1</code> activates the tab to the right.</td></tr>
+<tr><td><code>ActivateTab</code></td><td>Activate the tab specified by the <code>arg</code> value. eg: <code>0</code> activates the leftmost tab, while <code>1</code> activates the second tab from the left, and so on.</td></tr>
+<tr><td><code>IncreaseFontSize</code></td><td>Increases the font size of the current window by 10%</td></tr>
+<tr><td><code>DecreaseFontSize</code></td><td>Decreases the font size of the current window by 10%</td></tr>
+<tr><td><code>ResetFontSize</code></td><td>Reset the font size for the current window to the value in your configuration</td></tr>
+<tr><td><code>SendString</code></td><td>Sends the string specified by the <code>arg</code> value to the terminal in the current tab, as though that text were literally typed into the terminal.</td></tr>
+<tr><td><code>Nop</code></td><td>Does nothing.  This is useful to disable a default key assignment.</td></tr>
+<tr><td><code>Hide</code></td><td>Hides the current window</td></tr>
+<tr><td><code>Show</code></td><td>Shows the current window</td></tr>
+<tr><td><code>CloseCurrentTab</code></td><td>Equivalent to clicking the <code>x</code> on the window title bar to close it: Closes the current tab.  If that was the last tab, closes that window.  If that was the last window, wezterm terminates.</td></tr>
+<tr><td><code>MoveTabRelative</code></td><td>Move the current tab relative to its peers.  The <code>arg</code> value specifies an offset. eg: <code>-1</code> moves the tab to the left of the current tab, while <code>1</code> moves the tab to the right.</td></tr>
+<tr><td><code>MoveTab</code></td><td>Move the tab so that it has the index specified by the <code>arg</code> value. eg: <code>0</code> moves the tab to be  leftmost, while <code>1</code> moves the tab so that it is second tab from the left, and so on.</td></tr>
+<tr><td><code>ScrollByPage</code></td><td>Adjusts the scroll position by the number of pages specified by the <code>arg</code> value. Negative values scroll upwards, while positive values scroll downwards.</td></tr>
+</tbody></table>
+<p>Example:</p>
+<pre><code class="language-toml"># Turn off the default CMD-m Hide action
+[[keys]]
+key = &quot;m&quot;
+mods = &quot;CMD&quot;
+action = &quot;Nop&quot;
+
+# Macro for sending in some boiler plate.  This types `wtf!?` each
+# time CMD+SHIFT+W is pressed
+[[keys]]
+key = &quot;W&quot;
+mods = &quot;CMD|SHIFT&quot;
+action = &quot;SendString&quot;
+arg = &quot;wtf!?&quot;
+
+# CTRL+ALT+0 activates the leftmost tab
+[[keys]]
+key = &quot;0&quot;
+mods = &quot;CTRL|ALT&quot;
+action = &quot;ActivateTab&quot;
+# the tab number
+arg = &quot;0&quot;
+
+# CMD+y spawns a new tab in Domain 1
+[[keys]]
+key = &quot;y&quot;
+mods = &quot;CMD&quot;
+action = &quot;SpawnTabInDomain&quot;
+# the domain ID
+arg = &quot;1&quot;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../config/misc.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../config/appearance.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../config/misc.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../config/appearance.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
